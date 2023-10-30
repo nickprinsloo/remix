@@ -2,7 +2,7 @@
 
 ### Fetcher Persistence/Cleanup Changes
 
-Per this [RFC](https://github.com/remix-run/remix/discussions/7698), we've introduced a new `future.v7_fetcherPersist` flag that allows you to opt-into the new fetcher persistence/cleanup behavior. Instead of being immediately cleaned up on unmount, fetchers will persist in until they return to an `idle` state. ([#10962](https://github.com/remix-run/react-router/pull/10962))
+Per this [RFC](https://github.com/remix-run/remix/discussions/7698), we've introduced a new `future.v7_fetcherPersist` flag that allows you to opt-into the new fetcher persistence/cleanup behavior. Instead of being immediately cleaned up on unmount, fetchers will persist until they return to an `idle` state. ([#10962](https://github.com/remix-run/react-router/pull/10962))
 
 - This is sort of a long-standing bug fix as the `useFetchers()` API was always supposed to only reflect **in-flight** fetcher information for pending/optimistic UI -- it was not intended to reflect fetcher data or hang onto fetchers after they returned to an `idle` state
 - With `v7_fetcherPersist`, the `router` only knows about in-flight fetchers - they do not exist in `state.fetchers` until a `fetch()` call is made, and they are removed as soon as it returns to `idle` (and the data is handed off to the React layer)
